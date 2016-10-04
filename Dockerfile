@@ -10,7 +10,7 @@ RUN set -x && \
         /etc/apt/sources.list.d/webupd8team-java.list && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 && \
     echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-    apt-get update && echo yes | apt-get install -y oracle-java7-installer && \
+    apt-get update && echo yes | apt-get install -y --force-yes oracle-java7-installer && \
     apt-get update && apt-get install oracle-java7-set-default && \
     apt-get remove software-properties-common -y --auto-remove && \
     apt-get clean && \
