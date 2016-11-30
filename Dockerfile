@@ -34,6 +34,9 @@ ENV HDFS_CONF_DIR ${HADOOP_HOME}/etc/hadoop
 ENV YARN_CONF_DIR ${HADOOP_HOME}/etc/hadoop
 ENV HADOOP_CONF_DIR ${HADOOP_HOME}/etc/hadoop
 
+# Setup Hive
+ENV HIVE_CONF_DIR ${HADOOP_CONF_DIR}
+
 # Setup spark
 ENV SPARK_HOME=/opt/spark-${SPARK_VERSION}
 ENV PYTHONPATH=${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-0.9-src.zip
