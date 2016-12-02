@@ -1,4 +1,4 @@
-# `python-spark`
+# python-spark
 
 This image is based off the [`python:2.7`](https://hub.docker.com/_/python/) image and
 contains Hadoop, Sqoop and Spark binaries.
@@ -14,7 +14,7 @@ Useful packages included for Spark and Sqoop:
 Credentials are managed by `docker login`. Login with `docker login`
 
 ## Building and pushing new images
-Assuming that the Python version we want to build is `2.7` and the Spark version is `1.6.1`, then we can build
+Assuming that the Python version we want to build is `2.7` and the Spark version is `2.0`, then we can build
 the images as such:
 
 ```bash
