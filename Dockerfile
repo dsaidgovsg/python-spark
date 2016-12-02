@@ -44,7 +44,8 @@ ENV PYSPARK_PYTHON=python
 ENV PATH=$PATH:${SPARK_HOME}/bin
 
 # Add these two spark packages when submitting PySpark applications
-ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.11:1.4.0,com.databricks:spark-avro_2.10:2.0.1,graphframes:graphframes:0.1.0-spark1.6 pyspark-shell"
+#ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.11:1.4.0,com.databricks:spark-avro_2.10:2.0.1,graphframes:graphframes:0.1.0-spark1.6 pyspark-shell"
+ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.11:1.5.0,com.databricks:spark-avro_2.11:3.1.0,graphframes:graphframes:0.3.0-spark2.0-s_2.11 pyspark-shell"
 
 # Exposes the relevant ports and setup the port settings
 ENV SPARK_MASTER_OPTS="-Dspark.driver.port=7001 -Dspark.fileserver.port=7002 -Dspark.broadcast.port=7003 -Dspark.replClassServer.port=7004 -Dspark.blockManager.port=7005 -Dspark.executor.port=7006 -Dspark.ui.port=4040 -Dspark.broadcast.factory=org.apache.spark.broadcast.HttpBroadcastFactory"
@@ -70,8 +71,8 @@ RUN set -x && \
     tar -xz -C /opt/ && \
     mv /opt/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION} /opt/spark-${SPARK_VERSION} && \
     echo "Downloading Spark Packages" && \
-    wget -q http://repo1.maven.org/maven2/com/databricks/spark-avro_2.10/2.0.1/spark-avro_2.10-2.0.1.jar -P ${SPARK_HOME}/lib && \
-    wget -q http://repo1.maven.org/maven2/com/databricks/spark-csv_2.11/1.4.0/spark-csv_2.11-1.4.0.jar -P ${SPARK_HOME}/lib && \
+    wget -q http://repo1.maven.org/maven2/com/databricks/spark-avro_2.11/3.1.0/spark-avro_2.11-3.1.0.jar -P ${SPARK_HOME}/lib && \
+    wget -q http://repo1.maven.org/maven2/com/databricks/spark-csv_2.11/1.5.0/spark-csv_2.11-1.5.0.jar -P ${SPARK_HOME}/lib && \
     echo "Downloading Sqoop" && \
     wget -qO - http://www.apache.org/dist/sqoop/1.4.6/sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar.gz | tar -xz -C /opt && \
     cd /opt && ln -s ./sqoop-1.4.6.bin__hadoop-2.0.4-alpha sqoop && \
