@@ -18,8 +18,8 @@ Assuming that the Python version we want to build is `2.7` and the Spark version
 the images as such:
 
 ```bash
-docker build -t datagovsg/python-spark:2.7-1.6.1 .
-docker push datagovsg/python-spark:2.7-1.6.1
+docker build -t datagovsg/python-spark:2.7-2.0.2 .
+docker push datagovsg/python-spark:2.7-2.0.2
 ```
 
 ## Supported tags and respective `Dockerfile` links

@@ -39,7 +39,7 @@ ENV HIVE_CONF_DIR ${HADOOP_CONF_DIR}
 
 # Setup spark
 ENV SPARK_HOME=/opt/spark-${SPARK_VERSION}
-ENV PYTHONPATH=${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-0.9-src.zip
+ENV PYTHONPATH=${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-0.10.3-src.zip
 ENV PYSPARK_PYTHON=python
 ENV PATH=$PATH:${SPARK_HOME}/bin
 
