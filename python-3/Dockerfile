@@ -63,11 +63,11 @@ ENV PATH ${PATH}:${SQOOP_HOME}/bin:${HADOOP_HOME}/bin
 # Download Binaries
 RUN set -x && \
     echo "Downloading Hadoop" && \
-    wget -qO - http://download.nus.edu.sg/mirror/apache/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | \
+    wget -qO - http://apache.stu.edu.tw/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | \
         tar -xz -C /opt/ && \
     mv /opt/hadoop-${HADOOP_VERSION} /opt/hadoop && \
     echo "Downloading Spark" && \
-    wget -qO - http://download.nus.edu.sg/mirror/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION}.tgz |\
+    wget -qO - http://apache.stu.edu.tw/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION}.tgz |\
     tar -xz -C /opt/ && \
     mv /opt/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION} /opt/spark-${SPARK_VERSION} && \
     echo "Downloading Spark Packages" && \
