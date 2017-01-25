@@ -78,7 +78,7 @@ RUN set -x && \
         tar -xz -C /opt/ && \
     mv /opt/hadoop-${HADOOP_VERSION} /opt/hadoop && \
     echo "Downloading Spark" && \
-    wget -qO - http://apache.stu.edu.tw/spark/spark-${SPARK_16_VERSION}/spark-${SPARK_16_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION}.tgz |\
+    wget -qO - http://archive.apache.org/dist/spark/spark-${SPARK_16_VERSION}/spark-${SPARK_16_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION}.tgz |\
     tar -xz -C /opt/ && \
     mv /opt/spark-${SPARK_16_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION} /opt/spark-${SPARK_16_VERSION} && \
     wget -qO - http://apache.stu.edu.tw/spark/spark-${SPARK_20_VERSION}/spark-${SPARK_20_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION}.tgz |\
@@ -99,10 +99,10 @@ RUN set -x && \
     tar -C /tmp/ -xzf /tmp/mysql-connector-java-5.1.37.tar.gz && \
     cp /tmp/mysql-connector-java-5.1.37/mysql-connector-java-5.1.37-bin.jar /opt/sqoop/lib/ && \
     echo "Downloading mssql driver for sqoop" && \
-    wget -qO - 'http://download.microsoft.com/download/0/2/A/02AAE597-3865-456C-AE7F-613F99F850A8/sqljdbc_4.0.2206.100_enu.tar.gz' | \
+    wget -qO - 'https://download.microsoft.com/download/0/2/A/02AAE597-3865-456C-AE7F-613F99F850A8/enu/sqljdbc_6.0.8112.100_enu.tar.gz' | \
     tar xz -C /tmp && \
-    mv /tmp/sqljdbc_4.0/enu/sqljdbc4.jar ${SQOOP_HOME}/lib && \
-    rm -r /tmp/sqljdbc_4.0 && \
+    mv /tmp/sqljdbc_6.0/enu/jre7/sqljdbc41.jar ${SQOOP_HOME}/lib && \
+    rm -r /tmp/sqljdbc_6.0 && \
     echo "Cleaning up" && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

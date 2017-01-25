@@ -24,9 +24,10 @@ docker push datagovsg/python-spark:2.7-2.0
 
 ## Supported tags and respective `Dockerfile` links
 
+- `latest`: Python 2.7 with Spark 1.6.1 ([Dockerfile](Dockerfile))
 - `2.7-1.6.1`: Python 2.7 with Spark 1.6.1 ([Dockerfile](Dockerfile))
 - `2.7-2.0`: Python 2.7 with Spark 2.0 ([Dockerfile](Dockerfile))
 
 ## Note
 
-Both Spark binaries are installed. Default Spark version is 1.6.1.
+Both Spark versions are installed. Respective docker image tags have differ by the `SPARK_HOME` that was set.
