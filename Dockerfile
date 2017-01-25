@@ -17,9 +17,16 @@ RUN set -x && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-ENV HADOOP_MAJOR_MINOR_VERSION 2.7
-ENV HADOOP_VERSION ${HADOOP_MAJOR_MINOR_VERSION}.3
-ENV SPARK_VERSION 2.0.1
+ENV HADOOP_MAJOR_MINOR_VERSION 2.6
+ENV HADOOP_VERSION ${HADOOP_MAJOR_MINOR_VERSION}.1
+
+ENV SPARK_16_VERSION 1.6.1
+ENV SPARK_20_VERSION 2.0.1
+
+######################################
+# Use Spark 1.6.1 as the default
+######################################
+ENV SPARK_VERSION ${SPARK_16_VERSION}
 
 # Setup hadoop variables
 ENV HADOOP_HOME /opt/hadoop
@@ -37,15 +44,19 @@ ENV HADOOP_CONF_DIR ${HADOOP_HOME}/etc/hadoop
 # Setup Hive
 ENV HIVE_CONF_DIR ${HADOOP_CONF_DIR}
 
-# Setup spark
+# Setup Spark
+ENV SPARK_16_HOME=/opt/spark-${SPARK_16_VERSION}
+ENV SPARK_20_HOME=/opt/spark-${SPARK_20_VERSION}
 ENV SPARK_HOME=/opt/spark-${SPARK_VERSION}
 ENV PYTHONPATH=${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-0.10.3-src.zip
 ENV PYSPARK_PYTHON=python
 ENV PATH=$PATH:${SPARK_HOME}/bin
 
-# Add these two spark packages when submitting PySpark applications
-#ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.11:1.4.0,com.databricks:spark-avro_2.10:2.0.1,graphframes:graphframes:0.1.0-spark1.6 pyspark-shell"
-ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.11:1.5.0,com.databricks:spark-avro_2.11:3.1.0,graphframes:graphframes:0.3.0-spark2.0-s_2.11 pyspark-shell"
+# Add these two spark packages when submitting PySpark applications (Spark 1.6)
+ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.10:1.5.0,com.databricks:spark-avro_2.10:2.0.1,graphframes:graphframes:0.1.0-spark1.6 pyspark-shell"
+
+# Add these two spark packages when submitting PySpark applications (Spark 2.0)
+#ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.11:1.5.0,com.databricks:spark-avro_2.11:3.1.0,graphframes:graphframes:0.3.0-spark2.0-s_2.11 pyspark-shell"
 
 # Exposes the relevant ports and setup the port settings
 ENV SPARK_MASTER_OPTS="-Dspark.driver.port=7001 -Dspark.fileserver.port=7002 -Dspark.broadcast.port=7003 -Dspark.replClassServer.port=7004 -Dspark.blockManager.port=7005 -Dspark.executor.port=7006 -Dspark.ui.port=4040 -Dspark.broadcast.factory=org.apache.spark.broadcast.HttpBroadcastFactory"
@@ -67,12 +78,17 @@ RUN set -x && \
         tar -xz -C /opt/ && \
     mv /opt/hadoop-${HADOOP_VERSION} /opt/hadoop && \
     echo "Downloading Spark" && \
-    wget -qO - http://apache.stu.edu.tw/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION}.tgz |\
+    wget -qO - http://apache.stu.edu.tw/spark/spark-${SPARK_16_VERSION}/spark-${SPARK_16_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION}.tgz |\
     tar -xz -C /opt/ && \
-    mv /opt/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION} /opt/spark-${SPARK_VERSION} && \
+    mv /opt/spark-${SPARK_16_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION} /opt/spark-${SPARK_16_VERSION} && \
+    wget -qO - http://apache.stu.edu.tw/spark/spark-${SPARK_20_VERSION}/spark-${SPARK_20_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION}.tgz |\
+    tar -xz -C /opt/ && \
+    mv /opt/spark-${SPARK_20_VERSION}-bin-hadoop${HADOOP_MAJOR_MINOR_VERSION} /opt/spark-${SPARK_20_VERSION} && \
     echo "Downloading Spark Packages" && \
-    wget -q http://repo1.maven.org/maven2/com/databricks/spark-avro_2.11/3.1.0/spark-avro_2.11-3.1.0.jar -P ${SPARK_HOME}/lib && \
-    wget -q http://repo1.maven.org/maven2/com/databricks/spark-csv_2.11/1.5.0/spark-csv_2.11-1.5.0.jar -P ${SPARK_HOME}/lib && \
+    wget -q http://repo1.maven.org/maven2/com/databricks/spark-avro_2.10/2.0.1/spark-avro_2.10-2.0.1.jar -P ${SPARK_16_HOME}/lib && \
+    wget -q http://repo1.maven.org/maven2/com/databricks/spark-csv_2.10/1.5.0/spark-csv_2.10-1.5.0.jar -P ${SPARK_16_HOME}/lib && \
+    wget -q http://repo1.maven.org/maven2/com/databricks/spark-avro_2.11/3.1.0/spark-avro_2.11-3.1.0.jar -P ${SPARK_20_HOME}/lib && \
+    wget -q http://repo1.maven.org/maven2/com/databricks/spark-csv_2.11/1.5.0/spark-csv_2.11-1.5.0.jar -P ${SPARK_20_HOME}/lib && \
     echo "Downloading Sqoop" && \
     wget -qO - http://www.apache.org/dist/sqoop/1.4.6/sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar.gz | tar -xz -C /opt && \
     cd /opt && ln -s ./sqoop-1.4.6.bin__hadoop-2.0.4-alpha sqoop && \
