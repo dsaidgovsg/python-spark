@@ -1,6 +1,6 @@
 FROM python:3.5
 
-# Setup java
+# Setup Java
 RUN set -x && \
     apt-get update && \
     apt-get install --no-install-recommends -y software-properties-common && \
@@ -18,9 +18,9 @@ RUN set -x && \
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 ARG HADOOP_VERSION=2.6.1
-ARG SPARK_VERSION=1.6.3
+ARG SPARK_VERSION=1.6.1
 
-# Setup hadoop variables
+# Setup Hadoop variables
 ENV HADOOP_HOME /opt/hadoop
 ENV PATH ${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin
 ENV HADOOP_MAPRED_HOME ${HADOOP_HOME}
@@ -36,12 +36,12 @@ ENV HADOOP_CONF_DIR ${HADOOP_HOME}/etc/hadoop
 # Setup Hive
 ENV HIVE_CONF_DIR ${HADOOP_CONF_DIR}
 
-# Setup spark
+# Setup Spark
 ENV SPARK_HOME=/opt/spark-${SPARK_VERSION}
 ENV PYSPARK_PYTHON=python
 ENV PATH=$PATH:${SPARK_HOME}/bin
 
-# Add these two spark packages when submitting PySpark applications
+# Set Python Spark 1.6 specific settings
 ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.10:1.5.0,com.databricks:spark-avro_2.10:2.0.1,graphframes:graphframes:0.1.0-spark1.6 pyspark-shell"
 ENV PYTHONPATH=${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-0.9-src.zip
 
@@ -53,7 +53,7 @@ ENV SPARK_MASTER_WEBUI_PORT 8080
 ENV SPARK_WORKER_PORT 8888
 ENV SPARK_WORKER_WEBUI_PORT 8081
 
-# Set up sqoop
+# Set up Sqoop
 ENV SQOOP_HOME /opt/sqoop
 ENV PATH ${PATH}:${SQOOP_HOME}/bin:${HADOOP_HOME}/bin
 
