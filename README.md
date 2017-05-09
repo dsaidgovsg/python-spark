@@ -12,6 +12,14 @@ Useful packages included for Spark and Sqoop:
 - PostgreSQL JDBC driver
 - MS SQL JDBC driver
 
+## Kerberos support 
+Kerberos support has been added, but derivative images would need to update the kerberos configuration file in `/etc/krb5.conf`. To use spark with kerberos, the 
+environment variable `PYSPARK_SUBMIT_ARGS` should also be modified to specify the kerberos principal and location of the corresponding keytab. Derivative images 
+are responsible for putting in the keytab by mounting the volume containing the keytab into the image (suggested location: /etc/kerberos). So for example, if 
+the principal is `kerbuser` and the keytab is `kerbuser.keytab` in the default location, then `PYSPARK_SUBMIT_ARGS` would be 
+
+`[other spark parameters] --principal kerbuser --keytab /etc/kerberos/kerbuser.keytab pyspark-shell`
+
 ## Logging in to Docker Hub Container Registry
 Credentials are managed by `docker login`. Login with `docker login`
 

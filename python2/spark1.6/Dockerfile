@@ -89,4 +89,7 @@ RUN /bin/bash -c 'set -x && \
 
 EXPOSE 8080 7077 8888 8081 4040 7001 7002 7003 7004 7005 7006
 
+# Install kerberos client support
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y krb5-user
+
 CMD '/bin/bash'
