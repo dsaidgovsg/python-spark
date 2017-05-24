@@ -42,7 +42,7 @@ ENV PYSPARK_PYTHON=python
 ENV PATH=$PATH:${SPARK_HOME}/bin
 
 # Set Python Spark 1.6 specific settings
-ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.10:1.5.0,com.databricks:spark-avro_2.10:2.0.1,graphframes:graphframes:0.1.0-spark1.6 pyspark-shell"
+ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.10:1.5.0,com.databricks:spark-avro_2.10:2.0.1,graphframes:graphframes:0.5.0-spark1.6-s_2.10 pyspark-shell"
 ENV PYTHONPATH=${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-0.9-src.zip
 
 # Exposes the relevant ports and setup the port settings
