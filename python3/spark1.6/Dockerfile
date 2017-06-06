@@ -1,21 +1,11 @@
-FROM python:3.5
+FROM iron/python:3
 
-# Setup Java
-RUN set -x && \
-    apt-get update && \
-    apt-get install --no-install-recommends -y software-properties-common && \
-    echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"  > \
-        /etc/apt/sources.list.d/webupd8team-java.list && \
-    echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" >> \
-        /etc/apt/sources.list.d/webupd8team-java.list && \
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 && \
-    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-    apt-get update && echo yes | apt-get install -y --force-yes oracle-java8-installer && \
-    apt-get update && apt-get install oracle-java8-set-default && \
-    apt-get remove software-properties-common -y --auto-remove && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+# Install python pip
+RUN wget -qO - https://bootstrap.pypa.io/get-pip.py | python3
+
+# Setup Java & SSL
+RUN echo http://dl-cdn.alpinelinux.org/alpine/v3.6/community >> /etc/apk/repositories && apk --update add openjdk8-jre openssl libc6-compat && rm -rf /var/cache/apk/*
+ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 
 ARG HADOOP_VERSION=2.6.1
 ARG SPARK_VERSION=1.6.1
@@ -58,9 +48,9 @@ ENV SQOOP_HOME /opt/sqoop
 ENV PATH ${PATH}:${SQOOP_HOME}/bin:${HADOOP_HOME}/bin
 
 # Download binaries
-RUN /bin/bash -c 'set -x && \
+RUN mkdir /opt/ && /bin/sh -c 'set -x && \
     echo "Downloading Hadoop ${HADOOP_VERSION}" && \
-    wget -qO - http://apache.stu.edu.tw/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | \
+    wget -qO -  http://www-us.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | \
         tar -xz -C /opt/ && \
     mv /opt/hadoop-${HADOOP_VERSION} /opt/hadoop && \
     echo "Downloading Spark ${SPARK_VERSION} for Hadoop ${HADOOP_VERSION:0:3}" && \
@@ -90,6 +80,7 @@ RUN /bin/bash -c 'set -x && \
 EXPOSE 8080 7077 8888 8081 4040 7001 7002 7003 7004 7005 7006
 
 # Install kerberos client support
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y krb5-user
+RUN DEBIAN_FRONTEND=noninteractive apk --update add krb5 && rm -rf /var/cache/apk/*
 
-CMD '/bin/bash'
+CMD '/bin/sh'
+
