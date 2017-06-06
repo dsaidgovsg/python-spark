@@ -1,6 +1,6 @@
 # python-spark
 
-This image is based off the [`python:2.7`](https://hub.docker.com/_/python/) image and
+This image is based off the [`iron/python:2`](https://hub.docker.com/iron/python/) image and
 contains Hadoop, Sqoop and Spark binaries.
 
 This is used as a base image for [`airflow-pipeline`](https://github.com/datagovsg/airflow-pipeline), a simplified setup for Airflow to launch Hadoop and Spark jobs.

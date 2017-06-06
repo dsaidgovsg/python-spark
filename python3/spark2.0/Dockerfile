@@ -1,7 +1,7 @@
-FROM iron/python:2
+FROM iron/python:3
 
 # Install python pip
-RUN wget -qO - https://bootstrap.pypa.io/get-pip.py | python
+RUN wget -qO - https://bootstrap.pypa.io/get-pip.py | python3
 
 # Setup Java & SSL
 RUN echo http://dl-cdn.alpinelinux.org/alpine/v3.6/community >> /etc/apk/repositories && apk --update add openjdk8-jre openssl libc6-compat && rm -rf /var/cache/apk/*
