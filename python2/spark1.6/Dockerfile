@@ -80,7 +80,7 @@ RUN /bin/bash -c 'set -x && \
     tar -C /tmp/ -xzf /tmp/mysql-connector-java-5.1.37.tar.gz && \
     cp /tmp/mysql-connector-java-5.1.37/mysql-connector-java-5.1.37-bin.jar /opt/sqoop/lib/ && \
     echo "Downloading the JDBC drivers for MS SQL" && \
-    wget -q0 - https://download.microsoft.com/download/F/0/F/F0FF3F95-D42A-46AF-B0F9-8887987A2C4B/sqljdbc_4.2.8112.100_enu.tar.gz | \
+    wget -qO - https://download.microsoft.com/download/F/0/F/F0FF3F95-D42A-46AF-B0F9-8887987A2C4B/sqljdbc_4.2.8112.100_enu.tar.gz | \
     tar xz -C /tmp && \
     mv /tmp/sqljdbc_4.2/enu/jre8/sqljdbc42.jar ${SQOOP_HOME}/lib && \
     rm -r /tmp/sqljdbc_4.2 && \
