@@ -9,9 +9,11 @@ RUN set -x && \
     echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" >> \
         /etc/apt/sources.list.d/webupd8team-java.list && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 && \
-    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-    apt-get update && echo yes | apt-get install -y --force-yes oracle-java8-installer && \
-    apt-get update && apt-get install oracle-java8-set-default && \
+    wget -q -P /tmp http://ftp.osuosl.org/pub/funtoo/distfiles/oracle-java/jdk-7u80-linux-x64.tar.gz && \
+    echo oracle-java7-installer oracle-java7-installer/local select /tmp | /usr/bin/debconf-set-selections && \
+    echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
+    apt-get update && echo yes | apt-get install -y --force-yes oracle-java7-installer && \
+    apt-get update && apt-get install oracle-java7-set-default && \
     apt-get remove software-properties-common -y --auto-remove && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -82,7 +84,7 @@ RUN /bin/bash -c 'set -x && \
     echo "Downloading the JDBC drivers for MS SQL" && \
     wget -qO - https://download.microsoft.com/download/F/0/F/F0FF3F95-D42A-46AF-B0F9-8887987A2C4B/sqljdbc_4.2.8112.100_enu.tar.gz | \
     tar xz -C /tmp && \
-    mv /tmp/sqljdbc_4.2/enu/jre8/sqljdbc42.jar ${SQOOP_HOME}/lib && \
+    mv /tmp/sqljdbc_4.2/enu/jre7/sqljdbc41.jar ${SQOOP_HOME}/lib && \
     rm -r /tmp/sqljdbc_4.2 && \
     echo "Cleaning up" && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*'
