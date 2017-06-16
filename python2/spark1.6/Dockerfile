@@ -60,7 +60,7 @@ ENV PATH ${PATH}:${SQOOP_HOME}/bin:${HADOOP_HOME}/bin
 # Download binaries
 RUN /bin/bash -c 'set -x && \
     echo "Downloading Hadoop ${HADOOP_VERSION}" && \
-    wget -qO - http://apache.stu.edu.tw/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | \
+    wget -qO - http://www-us.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | \
         tar -xz -C /opt/ && \
     mv /opt/hadoop-${HADOOP_VERSION} /opt/hadoop && \
     echo "Downloading Spark ${SPARK_VERSION} for Hadoop ${HADOOP_VERSION:0:3}" && \
@@ -80,10 +80,10 @@ RUN /bin/bash -c 'set -x && \
     tar -C /tmp/ -xzf /tmp/mysql-connector-java-5.1.37.tar.gz && \
     cp /tmp/mysql-connector-java-5.1.37/mysql-connector-java-5.1.37-bin.jar /opt/sqoop/lib/ && \
     echo "Downloading the JDBC drivers for MS SQL" && \
-    wget -qO - https://download.microsoft.com/download/0/2/A/02AAE597-3865-456C-AE7F-613F99F850A8/enu/sqljdbc_6.0.8112.100_enu.tar.gz | \
+    wget -q0 - https://download.microsoft.com/download/F/0/F/F0FF3F95-D42A-46AF-B0F9-8887987A2C4B/sqljdbc_4.2.8112.100_enu.tar.gz | \
     tar xz -C /tmp && \
-    mv /tmp/sqljdbc_6.0/enu/jre7/sqljdbc41.jar ${SQOOP_HOME}/lib && \
-    rm -r /tmp/sqljdbc_6.0 && \
+    mv /tmp/sqljdbc_4.2/enu/jre8/sqljdbc42.jar ${SQOOP_HOME}/lib && \
+    rm -r /tmp/sqljdbc_4.2 && \
     echo "Cleaning up" && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*'
 
