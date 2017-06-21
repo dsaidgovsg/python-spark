@@ -20,7 +20,7 @@ RUN set -x && \
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 ARG HADOOP_VERSION=2.7.3
-ARG SPARK_VERSION=2.0.1
+ARG SPARK_VERSION=2.1.0
 
 # Setup Hadoop variables
 ENV HADOOP_HOME /opt/hadoop
