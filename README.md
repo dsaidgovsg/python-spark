@@ -24,7 +24,7 @@ the principal is `kerbuser` and the keytab is `kerbuser.keytab` in the default l
 Credentials are managed by `docker login`. Login with `docker login`
 
 ## Building and pushing new images
-Assuming that the Python version we want to build is `2.7`, the Hadoop version is `2.7.3` and the Spark version is `2.0.1`, then we can build the images as such:
+Assuming that the Python version we want to build is `2.7`, the Hadoop version is `2.7.3` and the Spark version is `2.1.0`, then we can build the images as such:
 
 ```bash
 docker build -t datagovsg/python-spark:2.7-2.1 -f python2/spark2.1/Dockerfile .
