@@ -22,8 +22,8 @@ RUN set -x && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ENV JAVA_HOME /usr/lib/jvm/java-7-oracle
 
-ARG HADOOP_VERSION=2.6.1
-ARG SPARK_VERSION=1.6.1
+ARG HADOOP_VERSION=2.7.3
+ARG SPARK_VERSION=2.1.0
 
 # Setup Hadoop variables
 ENV HADOOP_HOME /opt/hadoop
@@ -46,9 +46,9 @@ ENV SPARK_HOME=/opt/spark-${SPARK_VERSION}
 ENV PYSPARK_PYTHON=python
 ENV PATH=$PATH:${SPARK_HOME}/bin
 
-# Set Python Spark 1.6 specific settings
-ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.10:1.5.0,com.databricks:spark-avro_2.10:2.0.1,graphframes:graphframes:0.5.0-spark1.6-s_2.10 pyspark-shell"
-ENV PYTHONPATH=${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-0.9-src.zip
+# Set Python Spark 2 specific settings
+ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.11:1.5.0,com.databricks:spark-avro_2.11:3.1.0,graphframes:graphframes:0.5.0-spark2.0-s_2.11 pyspark-shell"
+ENV PYTHONPATH=${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-0.10.3-src.zip
 
 # Exposes the relevant ports and setup the port settings
 ENV SPARK_MASTER_OPTS="-Dspark.driver.port=7001 -Dspark.fileserver.port=7002 -Dspark.broadcast.port=7003 -Dspark.replClassServer.port=7004 -Dspark.blockManager.port=7005 -Dspark.executor.port=7006 -Dspark.ui.port=4040 -Dspark.broadcast.factory=org.apache.spark.broadcast.HttpBroadcastFactory"
@@ -73,8 +73,8 @@ RUN /bin/bash -c 'set -x && \
     tar -xz -C /opt/ && \
     mv /opt/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION:0:3} /opt/spark-${SPARK_VERSION} && \
     echo "Downloading Spark packages" && \
-    wget -q http://repo1.maven.org/maven2/com/databricks/spark-avro_2.10/2.0.1/spark-avro_2.10-2.0.1.jar -P ${SPARK_HOME}/lib && \
-    wget -q http://repo1.maven.org/maven2/com/databricks/spark-csv_2.10/1.5.0/spark-csv_2.10-1.5.0.jar -P ${SPARK_HOME}/lib && \
+    wget -q http://repo1.maven.org/maven2/com/databricks/spark-avro_2.11/3.1.0/spark-avro_2.11-3.1.0.jar -P ${SPARK_HOME}/jars && \
+    wget -q http://repo1.maven.org/maven2/com/databricks/spark-csv_2.11/1.5.0/spark-csv_2.11-1.5.0.jar -P ${SPARK_HOME}/jars && \
     echo "Downloading Sqoop" && \
     wget -qO - http://www.apache.org/dist/sqoop/1.4.6/sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar.gz | tar -xz -C /opt && \
     cd /opt && ln -s ./sqoop-1.4.6.bin__hadoop-2.0.4-alpha sqoop && \

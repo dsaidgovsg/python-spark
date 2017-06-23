@@ -1,4 +1,7 @@
-FROM python:2.7
+FROM debian
+
+# Install Python
+RUN apt-get update && apt-get install -y python wget curl gnupg && apt-get clean && curl https://bootstrap.pypa.io/get-pip.py | python
 
 # Setup Java
 RUN set -x && \
