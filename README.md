@@ -1,7 +1,7 @@
 # python-spark
 
 This image is based off the [`python:2.7`](https://hub.docker.com/_/python/) image and
-contains Hadoop, Sqoop and Spark binaries. Installs Oracle Java 7.
+contains Hadoop, Sqoop and Spark binaries. Installs OpenJDK 7.
 
 This is used as a base image for [`airflow-pipeline`](https://github.com/datagovsg/airflow-pipeline), a simplified setup for Airflow to launch Hadoop and Spark jobs.
 
@@ -12,11 +12,11 @@ Useful packages included for Spark and Sqoop:
 - PostgreSQL JDBC driver
 - MS SQL JDBC driver
 
-## Kerberos support 
-Kerberos support has been added, but derivative images would need to update the kerberos configuration file in `/etc/krb5.conf`. To use spark with kerberos, the 
-environment variable `PYSPARK_SUBMIT_ARGS` should also be modified to specify the kerberos principal and location of the corresponding keytab. Derivative images 
-are responsible for putting in the keytab by mounting the volume containing the keytab into the image (suggested location: /etc/kerberos). So for example, if 
-the principal is `kerbuser` and the keytab is `kerbuser.keytab` in the default location, then `PYSPARK_SUBMIT_ARGS` would be 
+## Kerberos support
+Kerberos support has been added, but derivative images would need to update the kerberos configuration file in `/etc/krb5.conf`. To use spark with kerberos, the
+environment variable `PYSPARK_SUBMIT_ARGS` should also be modified to specify the kerberos principal and location of the corresponding keytab. Derivative images
+are responsible for putting in the keytab by mounting the volume containing the keytab into the image (suggested location: /etc/kerberos). So for example, if
+the principal is `kerbuser` and the keytab is `kerbuser.keytab` in the default location, then `PYSPARK_SUBMIT_ARGS` would be
 
 `[other spark parameters] --principal kerbuser --keytab /etc/kerberos/kerbuser.keytab pyspark-shell`
 

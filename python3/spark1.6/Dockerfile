@@ -3,21 +3,13 @@ FROM python:3.5
 # Setup Java
 RUN set -x && \
     apt-get update && \
-    apt-get install --no-install-recommends -y software-properties-common && \
-    echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"  > \
-        /etc/apt/sources.list.d/webupd8team-java.list && \
-    echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" >> \
-        /etc/apt/sources.list.d/webupd8team-java.list && \
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 && \
-    wget -q -P /tmp http://ftp.osuosl.org/pub/funtoo/distfiles/oracle-java/jdk-7u80-linux-x64.tar.gz && \
-    echo oracle-java7-installer oracle-java7-installer/local select /tmp | /usr/bin/debconf-set-selections && \
-    echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-    apt-get update && echo yes | apt-get install -y --force-yes oracle-java7-installer && \
-    apt-get update && apt-get install oracle-java7-set-default && \
-    apt-get remove software-properties-common -y --auto-remove && \
+    apt-get install -y --force-yes openjdk-7-jdk && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+    apt-get autoremove && \
+    rm -rf /var/cache/apk/* /var/lib/apt/lists/* && \
+    update-java-alternatives -s java-1.7.0-openjdk-amd64 && \
+    java -version
+ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
 ARG HADOOP_VERSION=2.6.1
 ARG SPARK_VERSION=1.6.1
