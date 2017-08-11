@@ -39,4 +39,6 @@ docker push datagovsg/python-spark:2.7-2.1
 
 ## Spark version specific things to take note
 - `PYTHONPATH` and `PYSPARK_SUBMIT_ARGS`
-- Spark packages installed
+- Spark packages installed into the Ivy cache
+- Spark 1.6.1 is good up to Cloudera CDH 5.9
+- Spark 1.6.2 is good up to Cloudera CDH 5.10
