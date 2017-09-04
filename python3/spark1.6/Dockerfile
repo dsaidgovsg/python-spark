@@ -3,11 +3,12 @@ FROM python:3.5
 # Setup Java
 RUN set -x && \
     apt-get update && \
-    apt-get install -y --force-yes openjdk-7-jdk && \
+    apt-get install -y --no-install-recommends --force-yes openjdk-7-jdk && \
     apt-get clean && \
     apt-get autoremove && \
     rm -rf /var/cache/apk/* /var/lib/apt/lists/* && \
     update-java-alternatives -s java-1.7.0-openjdk-amd64 && \
+    (find /usr/share/doc -type f -and -not -name copyright -print0 | xargs -0 rm) && \
     java -version
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
