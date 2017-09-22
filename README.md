@@ -8,6 +8,7 @@ This is used as a base image for [`airflow-pipeline`](https://github.com/datagov
 Useful packages included for Spark and Sqoop:
 - Spark-csv
 - Spark-avro
+- Spark graphframes
 - MySQL JDBC driver
 - PostgreSQL JDBC driver
 - MS SQL JDBC driver
