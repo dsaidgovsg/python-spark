@@ -12,7 +12,7 @@ RUN set -x && \
     java -version
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
-ARG HADOOP_VERSION=2.6.1
+ARG HADOOP_VERSION=2.6.5
 ARG SPARK_VERSION=1.6.1
 
 # Setup Hadoop variables
@@ -80,7 +80,7 @@ RUN /bin/bash -c 'set -x && \
     mv /tmp/sqljdbc_4.2/enu/jre7/sqljdbc41.jar ${SQOOP_HOME}/lib && \
     rm -r /tmp/sqljdbc_4.2 && \
     echo "Cleaning up" && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ${HADOOP_HOME}/share/doc/* ${HADOOP_HOME}/lib/spark-examples*.jar'
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ${HADOOP_HOME}/share/doc/* ${SPARK_HOME}/lib/spark-examples*.jar'
 
 EXPOSE 8080 7077 8888 8081 4040 7001 7002 7003 7004 7005 7006
 
