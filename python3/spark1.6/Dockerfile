@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.6
 
 # Setup Java
 RUN set -x && \
@@ -12,7 +12,7 @@ RUN set -x && \
     java -version
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
-ARG HADOOP_VERSION=2.6.1
+ARG HADOOP_VERSION=2.6.5
 ARG SPARK_VERSION=1.6.1
 
 # Setup Hadoop variables
