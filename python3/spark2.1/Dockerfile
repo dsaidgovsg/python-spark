@@ -38,7 +38,7 @@ ENV PATH=$PATH:${SPARK_HOME}/bin
 
 # Set Python Spark 2 specific settings
 ENV PYSPARK_SUBMIT_ARGS="--packages com.databricks:spark-csv_2.11:1.5.0,com.databricks:spark-avro_2.11:3.1.0,graphframes:graphframes:0.5.0-spark2.0-s_2.11 pyspark-shell"
-ENV PYTHONPATH=${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-0.10.3-src.zip
+ENV PYTHONPATH=${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-0.10.4-src.zip
 
 # Exposes the relevant ports and setup the port settings
 ENV SPARK_MASTER_OPTS="-Dspark.driver.port=7001 -Dspark.fileserver.port=7002 -Dspark.broadcast.port=7003 -Dspark.replClassServer.port=7004 -Dspark.blockManager.port=7005 -Dspark.executor.port=7006 -Dspark.ui.port=4040 -Dspark.broadcast.factory=org.apache.spark.broadcast.HttpBroadcastFactory"
