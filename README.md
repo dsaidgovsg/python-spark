@@ -34,9 +34,10 @@ docker push datagovsg/python-spark:2.7-2.1
 
 ## Supported tags and respective `Dockerfile` links
 
-- `latest`: Python 2.7 with Spark 1.6.1 ([Dockerfile](Dockerfile))
-- `2.7-1.6`: Python 2.7 with Spark 1.6.1 ([Dockerfile](Dockerfile))
-- `2.7-2.1`: Python 2.7 with Spark 2.1.0 ([Dockerfile](Dockerfile))
+- `latest`: Python 2.7 with Spark 1.6.1 ([Dockerfile](python2/spark1.6/Dockerfile))
+- `2.7-1.6`: Python 2.7 with Spark 1.6.1 ([Dockerfile](python2/spark1.6/Dockerfile))
+- `2.7-2.1`: Python 2.7 with Spark 2.1.0 ([Dockerfile](python2/spark2.1/Dockerfile))
+- `3.6-2.1`: Python 3.6 with Spark 2.1.0 ([Dockerfile](python3/spark2.1/Dockerfile))
 
 ## Spark version specific things to take note
 - `PYTHONPATH` and `PYSPARK_SUBMIT_ARGS`
