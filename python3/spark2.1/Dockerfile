@@ -13,7 +13,7 @@ RUN set -x && \
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
 ARG HADOOP_VERSION=2.7.5
-ARG SPARK_VERSION=2.1.0
+ARG SPARK_VERSION=2.1.2
 
 # Setup Hadoop variables
 ENV HADOOP_HOME /opt/hadoop
